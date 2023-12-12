@@ -289,10 +289,6 @@ while True:
 		fps = 1 / (ctime - ptime)
 		ptime = ctime
 
-		# 프레임 뒤집기
-		# frame = cv2.flip(frame, 1)
-		# 실시간 프레임 뒤집기 (거울 모드 적용)
-		# frame = cv2.flip(frame, 1)
 
 		# FaceMesh ON/OFF 설정
 		frame_width = frame.shape[1]
@@ -323,19 +319,9 @@ while True:
 		cv2.putText(frame, capture_status_text, (text_x, text_y + 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
 		cv2.putText(frame, recording_status_text, (text_x, text_y + 60), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
 
-		# FaceMesh 전용 프레임 처리
-		# face_mesh_frame = np.zeros_like(frame)
-		# if facial_processor.face_mesh_enabled:
-		# 	# FaceMesh 처리
-		# 	facial_processor.face_mesh.process_frame(frame)
-		# 	if facial_processor.face_mesh.mesh_result.multi_face_landmarks:
-		# 		for face_landmarks in facial_processor.face_mesh.mesh_result.multi_face_landmarks:
-		# 			facial_processor.face_mesh.draw_mesh(face_mesh_frame, face_landmarks)
-
 		# 전체 통합 출력
 		cv2.imshow('Original Frame', frame)
 
-		# cv2.imshow('FaceMesh Frame', face_mesh_frame)  # FaceMesh만 표시
 
 	# Delay to control the frames per second
 	key = cv2.waitKey(1) & 0xFF
