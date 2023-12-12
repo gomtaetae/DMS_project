@@ -1,18 +1,20 @@
+import os
 import cv2
 import time
-from scipy.spatial import distance
-from imutils import face_utils
-import imutils
 import dlib
-import facial_tracking.conf as conf
-from facial_tracking.eye import Eye
-from facial_tracking.faceMesh import FaceMesh
-from facial_tracking.iris import Iris
 import pygame
-import os
+import psutil
+import imutils
 import datetime
 import collections
-
+from imutils import face_utils
+from scipy.spatial import distance
+from facial_tracking.eye import Eye
+import numpy as np
+import facial_tracking.conf as conf
+from facial_tracking.iris import Iris
+from facial_tracking.faceMesh import FaceMesh
+# from server.pybo.dataSave import save_file_info_to_db
 
 
 class FacialProcessor:
@@ -30,6 +32,19 @@ class FacialProcessor:
 		if self.face_mesh_enabled:
 		# FaceMesh 처리 코드
 			self.face_mesh.process_frame(frame)
+
+			# 새로운 프레임 생성 및 검은색으로 초기화
+			face_mesh_frame = np.zeros_like(frame)
+
+			# FaceMesh 그리기
+			if self.face_mesh.mesh_result.multi_face_landmarks:
+				self.face_mesh.frame = face_mesh_frame
+				self.face_mesh.draw_mesh()
+				cv2.imshow('FaceMesh Frame', face_mesh_frame)
+
+			# 원본 프레임에 대한 다른 처리 (여기에 코드 추가)
+			self.face_mesh.frame = frame
+			self.face_mesh.draw_mesh()
 
 			# Add your logic to detect eyes and update self.detected and self.eyes_status
 			# For demonstration purposes, let's assume eyes are always detected.
@@ -72,6 +87,7 @@ def eye_aspect_ratio(eye):
 
 # 이벤트 발생시 캡처화면 생성
 def save_frame(frame):
+	# flipped_frame = cv2.flip(frame, 1)  # 좌우 반전
 	# 현재 시각을 기반으로 파일 이름을 생성한다.
 	timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
 	filename = f"capture_{timestamp}.jpg"
@@ -87,10 +103,14 @@ def start_saving_event_video(frame_width, frame_height):
 	event_occurred = True
 	event_frame_count = 0
 	timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
-	filename = f"event_{timestamp}.avi"
+	filename = f"event_{timestamp}.mp4"
 	# 저장할 경로 설정
 	save_path = os.path.join("./save/videos", filename)
-	return cv2.VideoWriter(save_path, fourcc, fps, (frame_width, frame_height))
+	video_writer = cv2.VideoWriter(save_path, fourcc, fps, (frame_width, frame_height))
+	while frames_buffer:
+		buffer_frame = cv2.flip(frames_buffer.popleft(), 1)  # 버퍼 프레임 반전
+		video_writer.write(buffer_frame)
+	return video_writer
 
 thresh = 0.2
 frame_check = 15
@@ -114,7 +134,7 @@ rightEAR = 0.0
 # 동영상 저장을 위한 프레임 설정
 buffer_size = 2 # 이벤트 시작전 2초
 fps = 30 # 초당 프레임 수
-fourcc = cv2.VideoWriter_fourcc(*'XVID') # 비디오 코덱 설정
+fourcc = cv2.VideoWriter_fourcc(*'MP4V') # 비디오 코덱 설정
 
 # 프레임 버퍼 초기화
 frames_buffer = collections.deque(maxlen=buffer_size * fps) # 프레임을 저장할 수
@@ -130,14 +150,22 @@ post_event_frames = buffer_size * fps # 이벤트 후 저장할 프레임 수
 
 # Adjust the capture device index (0 or 1) based on your camera setup
 cap = cv2.VideoCapture(0)
-# cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1920)  # Set the width of the frames
-# cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 1240)  # Set the height of the frames
+cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1920)  # Set the width of the frames
+cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 1240)  # Set the height of the frames
 cap.set(cv2.CAP_PROP_FPS, 30)  # Set the frames per second
 
 
 # 졸음 감지 후 지속적인 알람을 위한 추가 변수 설정
 continuous_alarm_count = 0
 alarm_interval = 30  # 알람 간격 (프레임 수 기준)
+
+# 캡처 및 영상 녹화 ON/OFF
+capture_enabled = True
+recording_enabled = True
+
+# 캡처 및 영상 녹화 상태 출력
+capture_status_text = "Capture ON"
+recording_status_text = "Record ON"
 
 
 while True:
@@ -146,16 +174,21 @@ while True:
 	if not ret:
 		break
 
-	frames_buffer.append(frame)  # 프레임 버퍼에 현재 프레임 추가
+	# CPU 사용률 가져오기
+	cpu_usage = psutil.cpu_percent()
+
+	flipped_frame = cv2.flip(frame, 1)
+
+	frames_buffer.append(flipped_frame)  # 프레임 버퍼에 뒤집힌 프레임 추가
 
 	# Check if frame is not None before processing
 	if frame is not None:
-		frame = imutils.resize(frame, width=800)
-		gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-		
+		frame = imutils.resize(flipped_frame, width=600)
+		gray = cv2.cvtColor(flipped_frame, cv2.COLOR_BGR2GRAY)
+
 		# Use the face detector
 		subjects = detect(gray)
-		
+
 		for subject in subjects:
 			shape = predict(gray, subject)
 			shape = face_utils.shape_to_np(shape)
@@ -165,42 +198,52 @@ while True:
 			leftEAR = eye_aspect_ratio(leftEye)
 			rightEAR = eye_aspect_ratio(rightEye)
 			ear = (leftEAR + rightEAR) / 2.0
-			
+
 			if ear < thresh:
 				flag += 1
 				print(flag)
-				
+
 				if flag == frame_check:
 					cv2.putText(frame, "", (10, 30),
 					            cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
 
-					# 캡처하고 파일 경로를 반환받는다.
-					capture_path = save_frame(frame)
-					print(f"Capture image saved to: {capture_path}")
+					# 캡처 진행
+					if capture_enabled:
+						capture_status_text = "Capture ON" if capture_enabled else "Capture OFF"
+						# 캡처하고 파일 경로를 반환받는다.
+						capture_path = save_frame(frame)
+						print(f"Capture image saved to: {capture_path}")
+					else:
+						capture_status_text = "Capture OFF"
 
 					# 경고 알람 재생
 					alarm_sound.play()
 					print("Drowsiness Detected")
 
-					# 이벤트 발생 시점이면, 동영상 저장 준비
-					if not event_occurred:
-						frame_width = frame.shape[1]
-						frame_height = frame.shape[0]
-						video_writer = start_saving_event_video(frame_width, frame_height)
-						# 버퍼에 저장된 프레임(이벤트 발생 전 2초)을 영상 파일에 먼저 기록
-						while frames_buffer:
-							video_writer.write(frames_buffer.popleft())
-						event_occurred = True
-						event_frame_count = 0  # 프레임 카운트 초기화
+					# 영상 이벤트 진행
+					if recording_enabled:
+						recording_status_text = "Record ON" if recording_enabled else "Record OFF"
+						# 이벤트 발생 시점이면, 동영상 저장 준비
+						if not event_occurred:
+							frame_width = frame.shape[1]
+							frame_height = frame.shape[0]
+							video_path = start_saving_event_video(frame_width, frame_height)
+							# 버퍼에 저장된 프레임(이벤트 발생 전 2초)을 영상 파일에 먼저 기록
+							while frames_buffer:
+								video_path.write(frames_buffer.popleft())
+							event_occurred = True
+							event_frame_count = 0  # 프레임 카운트 초기화
+					else:
+						recording_status_text = "Record OFF"
 
 				# 이벤트가 지속되는 동안 프레임을 기록
 				if event_occurred and event_frame_count < post_event_frames:
-					video_writer.write(frame)
+					video_path.write(flipped_frame)
 					event_frame_count += 1
 
 				# 이벤트 후 추가 시간(5초)까지 녹화 완료
 				elif event_occurred and event_frame_count >= post_event_frames:
-					video_writer.release()
+					video_path.release()
 					event_occurred = False
 					frames_buffer.clear()
 
@@ -220,30 +263,36 @@ while True:
 				if event_occurred:
 					if event_frame_count < (buffer_size * fps + extra_recording_time):
 						# 이벤트 후 추가 시간 동안 계속 녹화
-						video_writer.write(frame)
+						video_path.write(frame)
 						event_frame_count += 1
 					else:
 						# 추가 시간이 끝나면 녹화 종료
-						video_writer.release()
+						video_path.release()
 						event_occurred = False
 						frames_buffer.clear()
 				flag = 0
 				if event_occurred and event_frame_count >= post_event_frames:
-					video_writer.release()
+					video_path.release()
 					event_occurred = False
 					frames_buffer.clear()
+
+					# 데이터베이스에 파일 정보 저장
+					# user_id = 1  # 예시 사용자 ID, 실제 사용자 ID로 교체 필요
+					# save_file_info_to_db(user_id, capture_path, video_path)
 
 				# 버퍼를 다시 초기화하여 다음 이벤트 대비
 				frames_buffer.clear()
 
 		facial_processor.process_frame(frame)
-		
+
 		ctime = time.time()
 		fps = 1 / (ctime - ptime)
 		ptime = ctime
 
 		# 프레임 뒤집기
-		frame = cv2.flip(frame, 1)
+		# frame = cv2.flip(frame, 1)
+		# 실시간 프레임 뒤집기 (거울 모드 적용)
+		# frame = cv2.flip(frame, 1)
 
 		# FaceMesh ON/OFF 설정
 		frame_width = frame.shape[1]
@@ -257,24 +306,50 @@ while True:
 
 		cv2.putText(frame, f'FPS: {int(fps)}', (30, 30), 0, 0.6,
 		            conf.TEXT_COLOR, 1, lineType=cv2.LINE_AA)
-		
+
 		cv2.putText(frame, f'{facial_processor.eyes_status}', (30, 70), 0, 0.8,
 		            conf.TEXT_COLOR, 2, lineType=cv2.LINE_AA)
-		
+
 		# Flip text rendering for the left and right ears
 		cv2.putText(frame, "Left EAR {:.2f}".format(leftEAR), (30, 550),
 		            cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 255, 0), 1)
 		cv2.putText(frame, "Right EAR {:.2f}".format(rightEAR), (30, 570),
 		            cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 255, 0), 1)
-		
-		cv2.imshow('Facial tracking', frame)
 
+		# 화면에 CPU 사용률을 표시하기
+		cv2.putText(frame, f'CPU Usage: {cpu_usage}%', (text_x, text_y + 90), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 255, 0), 1)
 
-	
+		# 화면에 텍스트 표시
+		cv2.putText(frame, capture_status_text, (text_x, text_y + 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
+		cv2.putText(frame, recording_status_text, (text_x, text_y + 60), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
+
+		# FaceMesh 전용 프레임 처리
+		# face_mesh_frame = np.zeros_like(frame)
+		# if facial_processor.face_mesh_enabled:
+		# 	# FaceMesh 처리
+		# 	facial_processor.face_mesh.process_frame(frame)
+		# 	if facial_processor.face_mesh.mesh_result.multi_face_landmarks:
+		# 		for face_landmarks in facial_processor.face_mesh.mesh_result.multi_face_landmarks:
+		# 			facial_processor.face_mesh.draw_mesh(face_mesh_frame, face_landmarks)
+
+		# 전체 통합 출력
+		cv2.imshow('Original Frame', frame)
+
+		# cv2.imshow('FaceMesh Frame', face_mesh_frame)  # FaceMesh만 표시
+
 	# Delay to control the frames per second
 	key = cv2.waitKey(1) & 0xFF
-	if key == ord('m'):
+	if key == ord('m') or key == ord('M'):
 		facial_processor.toggle_face_mesh()
+
+	if key == ord('c'):
+		capture_enabled = not capture_enabled
+		capture_status_text = "Capture ON" if capture_enabled else "Capture OFF"
+
+	if key == ord('r'):
+		recording_enabled = not recording_enabled
+		recording_status_text = "Record ON" if recording_enabled else "Record OFF"
+
 	if key == ord('q'):
 		break
 
