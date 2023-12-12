@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <h5 class="my-3 border-bottom pb-2">계정생성</h5>
+    <form method="post">
+        {{ form.csrf_token }}
+        {% include "form_errors.html" %}
+        <div class="mb-3">
+            <label for="nickname">사용자 아이디</label>
+            <input type="text" class="form-control" name="nickname" id="nickname"
+                   value="{{ form.nickname.data or '' }}">
+        </div>
+        <div class="mb-3">
+            <label for="users_name">사용자 이름</label>
+            <input type="text" class="form-control" name="users_name" id="users_name"
+                   value="{{ form.users_name.data or '' }}">
+        </div>
+        <div class="mb-3">
+            <label for="password1">비밀번호</label>
+            <input type="password" class="form-control" name="password1" id="password1"
+                   value="{{ form.password1.data or '' }}">
+        </div>
+        <div class="mb-3">
+            <label for="password2">비밀번호 확인</label>
+            <input type="password" class="form-control" name="password2" id="password2"
+                   value="{{ form.password2.data or '' }}">
+        </div>
+        <div class="mb-3">
+            <label for="email">이메일</label>
+            <input type="text" class="form-control" name="email" id="email"
+                   value="{{ form.email.data or '' }}">
+        </div>
+        <div class="mb-3">
+            <label for="users_birth">생년월일</label>
+            <input type="text" class="form-control" name="users_birth" id="users_birth"
+                   value="{{ form.users_birth.data or '' }}">
+        </div>
+        <div class="mb-3">
+            <label for="users_phone">핸드폰 번호</label>
+            <input type="text" class="form-control" name="users_phone" id="users_phone"
+                   value="{{ form.users_phone.data or '' }}">
+        </div>
+        <div class="mb-3">
+            <label for="address_main">주소</label>
+            <input type="text" class="form-control" name="address_main" id="address_main"
+                   value="{{ form.address_main.data or '' }}">
+        </div>
+        <div class="mb-3">
+            <label for="address_sub">상세 주소</label>
+            <input type="text" class="form-control" name="address_sub" id="address_sub"
+                   value="{{ form.address_sub.data or '' }}">
+        </div>
+        <button type="submit" class="btn btn-primary">생성하기</button>
+    </form>
+</div>
+{% endblock %}
