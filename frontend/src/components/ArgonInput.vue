@@ -10,9 +10,10 @@
         :class="getClasses(size, valid)"
         :name="name"
         :id="id"
-        :value="value"
+        :value="modelValue"
         :placeholder="placeholder"
-        :isRequired="isRequired"
+        :required="isRequired"
+        @input="$emit('update:modelValue', $event.target.value)"
       />
       <span v-if="iconDir === 'right'" class="input-group-text">
         <i :class="getIcon(icon)"></i>
@@ -37,7 +38,7 @@ export default {
     iconDir: String,
     name: String,
     id: String,
-    value: String,
+    modelValue: String,  // value prop을 modelValue로 변경
     placeholder: String,
     type: String,
     isRequired: Boolean,
@@ -47,7 +48,6 @@ export default {
       let sizeValue, isValidValue;
 
       sizeValue = size ? `form-control-${size}` : null;
-
       isValidValue = valid ? `${valid}` : "invalid";
 
       return `${sizeValue} ${isValidValue}`;

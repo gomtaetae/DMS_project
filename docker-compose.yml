@@ -15,6 +15,7 @@ services:
 
   backend:
     container_name: my-back
+    restart: always
     build:
       context: backend
       dockerfile: back.dev.Dockerfile
@@ -23,7 +24,11 @@ services:
     ports:
       - 5000:5000
     volumes:
-    - ./backend:/www
+      - ./backend:/www
+    links:
+      - db
+    depends_on:
+      - frontend
 
 
   db:
@@ -34,7 +39,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: "1234"
       MYSQL_DATABASE: "dms"
-#      MYSQL_USER: "wool"
+#      MYSQL_USER: "test"
 #      MYSQL_PASSWORD: "1234"
     volumes:
       - ~/mysql_data:/var/lib/mysql
