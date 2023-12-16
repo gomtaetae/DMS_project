@@ -1,13 +1,15 @@
 from flask import Flask, jsonify, request, session
+from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from dotenv import load_dotenv
+import os, traceback
 
 from my_model import my_model
 from my_util.my_logger import my_logger
 
-import os, traceback
+
 
 load_dotenv()
 # instantiate the app
@@ -16,8 +18,13 @@ app.secret_key = 'laksdjfoiawjewfansldkfnzcvjlzskdf'
 
 app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("SQLALCHEMY_DATABASE_URI")
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = os.getenv("SQLALCHEMY_TRACK_MODIFICATIONS")
+
+app.config["JWT_SECRET_KEY"] = "your_jwt_secret_key"  # JWT를 위한 시크릿 키
+
 db = SQLAlchemy()
 db.init_app(app)
+
+jwt = JWTManager(app)  # JWT 인스턴스 추가
 
 # enable CORS
 CORS(app, resources={r'/*': {'origins': '*'}})
@@ -105,14 +112,15 @@ def auth_login():
 
         if user_data is not None:
             my_logger.info(user_data.password)
-            auth = user_data.check_password(password)
+            auth = bcrypt.check_password_hash(user_data.password, password)
             if not auth:
                 my_logger.info("password validation fail!")
                 return jsonify({'error': 'Invalid password'}), 401
             else:
                 my_logger.info("login success!")
-                # 토큰 생성 및 반환 로직을 여기에 추가
-                return jsonify({'success': 'User login successful.'})
+                # JWT 토큰 생성
+                access_token = create_access_token(identity=email)
+                return jsonify(access_token=access_token), 200
         else:
             my_logger.info("User not found or incorrect credentials.")
             return jsonify({'error': 'User not found or incorrect credentials.'}), 404
@@ -121,10 +129,28 @@ def auth_login():
         # 디버그 정보는 로그로만 남기고 사용자에게는 노출하면 안된다
         return jsonify({'error': 'An internal error occurred.'}), 500
 
-    @app.route('/api/auth/logout')
-    def auth_logout():
-        session['login'] = False
-        return {'success': 'logout'}
+@app.route('/api/auth/logout')
+def auth_logout():
+    session['login'] = False
+    return {'success': 'logout'}
+    
+    # 사용자 세부 정보 엔드포인트
+# @app.route('/api/user/details', methods=['GET'])
+# @jwt_required()
+# def get_user_details():
+#     current_user_email = get_jwt_identity()  # JWT 토큰에서 사용자 이메일 추출
+#     user = my_model.User.query.filter_by(email=current_user_email).first()
+#
+#     if user:
+#         user_data = {
+#             "nickname": user.nickname,
+#             "users_name": user.users_name,
+#             "email": user.email,
+#             # 추가로 필요한 정보
+#         }
+#         return jsonify(user_data), 200
+#     else:
+#         return jsonify({"error": "User not found"}), 404
 
 if __name__ == '__main__':
     with app.app_context():

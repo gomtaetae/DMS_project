@@ -293,42 +293,58 @@
 </template>
 
 <script>
-import setNavPills from "@/assets/js/nav-pills.js";
-import setTooltip from "@/assets/js/tooltip.js";
+import { mapState, mapActions  } from 'vuex';
 import ProfileCard from "./components/ProfileCard.vue";
 import ArgonInput from "@/components/ArgonInput.vue";
 import ArgonButton from "@/components/ArgonButton.vue";
-
-const body = document.getElementsByTagName("body")[0];
+import axios from 'axios';
 
 export default {
-  name: "profile",
+  name: "Profile",
+  components: { ProfileCard, ArgonInput, ArgonButton },
   data() {
     return {
-      showMenu: false
+      // userProfile: {
+      //   // 사용자 프로필 데이터 초기화
+      //   nickname: '',
+      //   email: '',
+      //   // 추가 필드
+      // },
+      backgroundStyle: {
+        // 배경 이미지 스타일
+      }
     };
   },
-  components: { ProfileCard, ArgonInput, ArgonButton },
-
-  mounted() {
-    this.$store.state.isAbsolute = true;
-    setNavPills();
-    setTooltip();
+  computed: {
+    ...mapState(['isLoggedIn', 'userDetails']), // Vuex 스토어의 상태를 매핑
+    userProfile() {
+      // 사용자 정보를 Vuex 스토어에서 가져옵니다.
+      return this.userDetails || {
+        // 기본값 설정
+        nickname: '',
+        email: '',
+        // 추가 필드
+      };
+    }
   },
-  beforeMount() {
-    this.$store.state.imageLayout = "profile-overview";
-    this.$store.state.showNavbar = false;
-    this.$store.state.showFooter = true;
-    this.$store.state.hideConfigButton = true;
-    body.classList.add("profile-overview");
+  methods: {
+    ...mapActions(['fetchUserDetails']),
+    updateProfile() {
+      // 사용자 프로필 데이터를 백엔드로 업데이트하는 로직
+      axios.post('/api/user/update', this.userProfile)
+        .then(() => {
+          console.log('Profile updated successfully');
+        })
+        .catch(error => {
+          console.error('Error updating profile:', error);
+        });
+    }
   },
-  beforeUnmount() {
-    this.$store.state.isAbsolute = false;
-    this.$store.state.imageLayout = "default";
-    this.$store.state.showNavbar = true;
-    this.$store.state.showFooter = true;
-    this.$store.state.hideConfigButton = false;
-    body.classList.remove("profile-overview");
-  }
+  created() {
+    if (this.isLoggedIn) {
+      this.fetchUserDetails();
+    }
+  },
+  // 기타 필요한 메소드 및 라이프사이클 훅
 };
 </script>

@@ -1,95 +1,53 @@
 <template>
-    <!-- -------- START FOOTER 3 w/ COMPANY DESCRIPTION WITH LINKS & SOCIAL ICONS & COPYRIGHT ------- -->
-  <footer class="py-5 footer">
-    <div class="container">
-      <div class="row">
-        <div class="mx-auto mb-4 text-center col-lg-8">
-          <a
-            href="javascript:;"
-            target="_blank"
-            class="mb-2 text-secondary me-xl-5 me-3 mb-sm-0"
+  <footer class="py-3 footer">
+    <div class="container-fluid">
+      <div class="row align-items-center justify-content-lg-between">
+        <div class="mb-4 col-lg-6 mb-lg-0">
+          <div
+            class="text-sm text-center copyright text-muted"
+            :class="this.$store.state.isRTL ? 'text-lg-end' : 'text-lg-start'"
           >
-            Company
-          </a>
-          <a
-            href="javascript:;"
-            target="_blank"
-            class="mb-2 text-secondary me-xl-5 me-3 mb-sm-0"
-          >
-            About Us
-          </a>
-          <a
-            href="javascript:;"
-            target="_blank"
-            class="mb-2 text-secondary me-xl-5 me-3 mb-sm-0"
-          >
-            Team
-          </a>
-          <a
-            href="javascript:;"
-            target="_blank"
-            class="mb-2 text-secondary me-xl-5 me-3 mb-sm-0"
-          >
-            Products
-          </a>
-          <a
-            href="javascript:;"
-            target="_blank"
-            class="mb-2 text-secondary me-xl-5 me-3 mb-sm-0"
-          >
-            Blog
-          </a>
-          <a
-            href="javascript:;"
-            target="_blank"
-            class="mb-2 text-secondary me-xl-5 me-3 mb-sm-0"
-          >
-            Pricing
-          </a>
+            ©
+            {{ new Date().getFullYear() }}, made with
+            <i class="fa fa-heart"></i> by
+            <a
+              href="https://github.com/kosa-final"
+              class="font-weight-bold"
+              target="_blank"
+              >Team DMS</a
+            >
+            for a better web.
+          </div>
         </div>
-        <div class="mx-auto mt-2 mb-4 text-center col-lg-8">
-          <a
-            href="javascript:;"
-            target="_blank"
-            class="text-secondary me-xl-4 me-4"
+        <div class="col-lg-6">
+          <ul
+            class="nav nav-footer justify-content-center justify-content-lg-end"
           >
-            <span class="text-lg fab fa-dribbble"></span>
-          </a>
-          <a
-            href="javascript:;"
-            target="_blank"
-            class="text-secondary me-xl-4 me-4"
-          >
-            <span class="text-lg fab fa-twitter"></span>
-          </a>
-          <a
-            href="javascript:;"
-            target="_blank"
-            class="text-secondary me-xl-4 me-4"
-          >
-            <span class="text-lg fab fa-instagram"></span>
-          </a>
-          <a
-            href="javascript:;"
-            target="_blank"
-            class="text-secondary me-xl-4 me-4"
-          >
-            <span class="text-lg fab fa-pinterest"></span>
-          </a>
-          <a
-            href="javascript:;"
-            target="_blank"
-            class="text-secondary me-xl-4 me-4"
-          >
-            <span class="text-lg fab fa-github"></span>
-          </a>
-        </div>
-      </div>
-      <div class="row">
-        <div class="mx-auto mt-1 text-center col-8">
-          <p class="mb-0 text-secondary">
-            Copyright © {{ new Date().getFullYear() }} Soft by Creative Tim.
-          </p>
+            <li class="nav-item">
+              <a
+                href="https://github.com/kosa-final"
+                class="nav-link text-muted"
+                target="_blank"
+                >Team DMS</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                href="https://github.com/kosa-final"
+                class="nav-link text-muted"
+                target="_blank"
+                >About Us</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                href="https://www.creative-tim.com/license"
+                class="nav-link pe-0 text-muted"
+                target="_blank"
+                >License</a
+              >
+            </li>
+          </ul>
         </div>
       </div>
     </div>

@@ -15,8 +15,8 @@
                         <div class="mx-auto col-xl-4 col-lg-5 col-md-7 d-flex flex-column mx-lg-0">
                             <div class="card card-plain">
                                 <div class="pb-0 card-header text-start">
-                                    <h4 class="font-weight-bolder">Sign In</h4>
-                                    <p class="mb-0">Enter your email and password to sign in</p>
+                                    <h4 class="font-weight-bolder">로그인</h4>
+                                    <p class="mb-0">이메일과 비밀번호를 입력해 로그인하세요</p>
                                 </div>
                                 <div class="card-body">
                                     <form role="form" @submit.prevent="makeLogin">
@@ -28,19 +28,19 @@
                                             <argon-input type="password" placeholder="Password" name="password" size="lg"
                                                 v-model="userInfo.password" />
                                         </div>
-                                        <argon-switch id="rememberMe" v-model="userInfo.remember">Remember me</argon-switch>
+                                        <argon-switch id="rememberMe" v-model="userInfo.remember">아이디 저장</argon-switch>
 
                                         <div class="text-center">
                                             <argon-button type="submit" class="mt-4" variant="gradient" color="success"
-                                                fullWidth size="lg">Sign in</argon-button>
+                                                fullWidth size="lg">로그인</argon-button>
                                         </div>
                                     </form>
                                 </div>
                                 <div class="px-1 pt-0 text-center card-footer px-lg-2">
                                     <p class="mx-auto mb-4 text-sm">
-                                        Don't have an account?
+                                        아직 회원이 아니신가요?
                                         <a href="javascript:;" class="text-success text-gradient font-weight-bold"
-                                            @click="goToSignUp">Sign up</a>
+                                            @click="goToSignUp">회원가입</a>
                                     </p>
                                 </div>
                             </div>
@@ -48,13 +48,10 @@
                         <div
                             class="top-0 my-auto text-center col-6 d-lg-flex d-none h-100 pe-0 position-absolute end-0 justify-content-center flex-column">
                             <div class="position-relative bg-gradient-primary h-100 m-3 px-7 border-radius-lg d-flex flex-column justify-content-center overflow-hidden"
-                                style="background-image: url('https://raw.githubusercontent.com/creativetimofficial/public-assets/master/argon-dashboard-pro/assets/img/signin-ill.jpg');
-                                background-size: cover;">
-                                <span class="mask bg-gradient-success opacity-6"></span>
-                                <h4 class="mt-5 text-white font-weight-bolder position-relative">"Attention is the new
-                                    currency"</h4>
-                                <p class="text-white position-relative">The more effortless the writing looks, the more
-                                    effort the writer actually put into the process.</p>
+                            :style="{ backgroundImage: 'url(' + require('@/assets/img/loginbg.png') + ')',  backgroundSize: 'contain',  backgroundRepeat: 'no-repeat' }">
+                                <span class="mask bg-gradient-success opacity-6"></span><br><br><br><br><br><br><br><br><br>
+                                <h3 class="mt-5 text-white font-weight-bolder position-relative">"졸음 운전은 막을 수 있습니다"</h3>
+                                <h4 class="text-white position-relative">졸음 운전, 운전 중 핸드폰 사용은 타인의 목숨을 앗아 갈 수 있습니다.</h4>
                             </div>
                         </div>
                     </div>
@@ -85,7 +82,8 @@ export default {
             userInfo: {
                 email: '',
                 password: ''
-            }
+            },
+            accessToken: '', // 토큰을 저장할 변수 추가
         }
     },
     methods: {
@@ -95,13 +93,20 @@ export default {
 
             axios.post(path, this.userInfo)
                 .then((res) => {
-                    console.log("Login response:", res); // 성공 응답 출력
+                    console.log("Server response:", res);
+                    if (res.data.access_token) {
+                        this.fetchUserDetails(res.data.access_token); // 사용자 정보 요청 함수 호출
+                        // 토큰을 localStorage에 저장
+                        localStorage.setItem('token', res.data.access_token);
+                        console.log("Token stored:", localStorage.getItem('token')); // 토큰 저장 확인 로그     
+                        console.log("Redirecting to Dashboard..."); // 리디렉션 로그
 
-                    if (res.data.success) {
-                        // 성공적로직
-                        this.$router.push("/");
+
+                        // Vuex 상태 업데이트
+                        this.$store.dispatch('login', res.data.access_token);
+                        // 메인 페이지로 리다이렉트
+                        this.$router.push({ name: "Dashboard" });
                     } else {
-                        // 로그인 실패 메시지를 출력하는 부분
                         console.error('Login failed', res.data);
                     }
                 })
@@ -116,7 +121,25 @@ export default {
                         console.error('Error message:', error.message);
                     }
                 });
-        }
+        },
+        fetchUserDetails(token) {
+            // 토큰을 사용하여 사용자 정보를 요청하는 로직
+            axios.get('/api/user/details', { headers: { 'Authorization': `Bearer ${token}` } })
+                .then(response => {
+                    this.$store.commit('SET_USER_DETAILS', response.data); // Vuex 스토어 업데이트
+                })
+                .catch(error => {
+                    console.error("Error fetching user details:", error);
+                });
+        },
+        makelogout() {
+            // localStorage에서 토큰 제거
+            localStorage.removeItem('token');
+            // Vuex 상태 업데이트
+            this.$store.dispatch('logout');
+            // 로그인 페이지로 리다이렉트
+            this.$router.push('/signin');
+        },
     },
     goToSignUp() {
         this.$router.push('/signup');

@@ -13,9 +13,8 @@
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-lg-5 text-center mx-auto">
-                        <h1 class="text-white mb-2 mt-5">Welcome!</h1>
-                        <p class="text-lead text-white">Use these awesome forms to login or create new account in your
-                            project for free.</p>
+                        <h1 class="text-white mb-2 mt-5">환영합니다!</h1>
+                        <p class="text-lead text-white">회원가입을 통해 더 다양한 서비스를 경험해보세요</p>
                     </div>
                 </div>
             </div>
@@ -25,7 +24,7 @@
                 <div class="col-xl-4 col-lg-5 col-md-7 mx-auto">
                     <div class="card z-index-0">
                         <div class="card-header text-center pt-4">
-                            <h5>Register with</h5>
+                            <h5>회원가입</h5>
                         </div>
                         <div class="row px-xl-5 px-sm-4 px-3">
                             <div class="col-3 ms-auto px-1">
@@ -84,27 +83,26 @@
                         </div>
                         <div class="card-body">
                             <form role="form" @submit.prevent="submitSignup">
-                                <argon-input type="text" placeholder="Nickname" v-model="user.nickname" />
-                                <argon-input type="text" placeholder="Name" v-model="user.users_name" />
-                                <argon-input type="email" placeholder="Email" v-model="user.email" />
-                                <argon-input type="password" placeholder="Password" v-model="user.password" />
-                                <argon-input type="date" placeholder="Birth Date" v-model="user.users_birth" />
-                                <argon-input type="tel" placeholder="Phone" v-model="user.users_phone" />
-                                <argon-input type="text" placeholder="Main Address" v-model="user.address_main" />
-                                <argon-input type="text" placeholder="Sub Address" v-model="user.address_sub" />
+                                <argon-input type="text" placeholder="아이디" v-model="user.nickname" />
+                                <argon-input type="text" placeholder="이름" v-model="user.users_name" />
+                                <argon-input type="email" placeholder="이메일" v-model="user.email" />
+                                <argon-input type="password" placeholder="비밀번호" v-model="user.password" />
+                                <argon-input type="date" placeholder="생년월일" v-model="user.users_birth" />
+                                <argon-input type="tel" placeholder="핸드폰번호" v-model="user.users_phone" />
+                                <argon-input type="text" placeholder="시/도" v-model="user.address_main" />
+                                <argon-input type="text" placeholder="시/군/구" v-model="user.address_sub" />
                                 <argon-checkbox :checked="user.agreeTerms" @change="toggleAgreeTerms">
                                     <label class="form-check-label" for="flexCheckDefault">
-                                        I agree the
-                                        <a href="javascript:;" class="text-dark font-weight-bolder">Terms and Conditions</a>
+                                        입력한 내용의 정보를 제공하는 것에
+                                        <a href="javascript:;" class="text-dark font-weight-bolder">동의합니다</a>
                                     </label>
                                 </argon-checkbox>
                                 <div class="text-center">
-                                    <argon-button fullWidth color="dark" variant="gradient" class="my-4 mb-2">Sign
-                                        up</argon-button>
+                                    <argon-button fullWidth color="dark" variant="gradient" class="my-4 mb-2">회원가입</argon-button>
                                 </div>
                                 <p class="text-sm mt-3 mb-0">
-                                    Already have an account?
-                                    <a href="javascript:;" class="text-dark font-weight-bolder">Sign in</a>
+                                    이미 계정이 있으신가요?
+                                    <a href="javascript:;" class="text-dark font-weight-bolder">로그인</a>
                                 </p>
                             </form>
                         </div>
