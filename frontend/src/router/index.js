@@ -4,6 +4,7 @@ import Tables from "../views/Tables.vue";
 import Profile from "../views/Profile.vue";
 import Signup from "../views/Register.vue";
 import Signin from "../views/Login.vue";
+import Restarea from "../examples/Table/RestArea.vue"
 
 const routes = [
   {
@@ -31,7 +32,11 @@ const routes = [
     name: "Signup",
     component: Signup,
   },
-  
+  {
+    path: "/restarea",
+    name: "RestArea",
+    component: Restarea,
+  },
 ];
 
 const router = createRouter({

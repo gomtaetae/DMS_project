@@ -1,17 +1,27 @@
 <template>
   <div class="card mb-4">
 <div class="card-header pb-0">
-<h6>Projects table</h6>
+<h6>월별 위험 행동</h6>
 </div>
 <div class="card-body px-0 pt-0 pb-2">
 <div class="table-responsive p-0">
- <table class="table align-items-center justify-content-center mb-0">
+<table class="table align-items-center justify-content-center mb-0">
 <thead>
 <tr>
-<th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Project</th>
-<th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Budget</th>
-<th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Status</th>
-<th class="text-uppercase text-secondary text-xxs font-weight-bolder text-center opacity-7 ps-2">Completion</th>
+<th class="text-uppercase text-secondary text-sm font-weight-bolder opacity-7">행동</th>
+<th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">1월</th>
+<th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">2월</th>
+<th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">3월</th>
+<th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">4월</th>
+<th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">5월</th>
+<th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">6월</th>
+<th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">7월</th>
+<th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">8월</th>
+<th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">9월</th>
+<th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">10월</th>
+<th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">11월</th>
+<th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">12월</th>
+<th class="text-uppercase text-secondary text-xs text-center font-weight-bolder opacity-7 ps-2">누적</th>
 <th></th>
 </tr>
 </thead>
@@ -20,198 +30,232 @@
 <td>
 <div class="d-flex px-2">
 <div>
-<img src="../../assets/img/small-logos/logo-spotify.svg" class="avatar avatar-sm rounded-circle me-2" alt="spotify">
+<img src="../../assets/png/sleep.png" class="me-1" alt="sleep" style="width: 18px; height: 18px;">
 </div>
 <div class="my-auto">
-<h6 class="mb-0 text-sm">Spotify</h6>
+<h6 class="mb-0 text-sm">졸음</h6>
 </div>
 </div>
 </td>
 <td>
-<p class="text-sm font-weight-bold mb-0">$2,500</p>
+<p class="text-sm text-center font-weight-bold mb-0">0</p>
 </td>
 <td>
-<span class="text-xs font-weight-bold">working</span>
+<p class="text-sm text-center font-weight-bold mb-0">0</p>
 </td>
-<td class="align-middle text-center">
+<td>
+<p class="text-sm text-center font-weight-bold mb-0">0</p>
+</td>
+<td>
+<p class="text-sm text-center font-weight-bold mb-0">1</p>
+</td>
+<td>
+<p class="text-sm text-center font-weight-bold mb-0">3</p>
+</td>
+<td>
+<p class="text-sm text-center font-weight-bold mb-0">2</p>
+</td>
+<td>
+<p class="text-sm text-center font-weight-bold mb-0">0</p>
+</td>
+<td>
+<p class="text-sm text-center font-weight-bold mb-0">0</p>
+</td>
+<td>
+<p class="text-sm text-center font-weight-bold mb-0">3</p>
+</td>
+<td>
+<p class="text-sm text-center font-weight-bold mb-0">0</p>
+</td>
+<td>
+<p class="text-sm text-center font-weight-bold mb-0">3</p>
+</td>
+<td>
+<p class="text-sm text-center font-weight-bold mb-0">1</p>
+</td>
+<td>
 <div class="d-flex align-items-center justify-content-center">
-<span class="me-2 text-xs font-weight-bold">60%</span>
+<span class="me-2 text-xs font-weight-bold">13회</span>
 <div>
 <div class="progress">
-<div class="progress-bar bg-gradient-info" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
+<div class="progress-bar-drowsy" role="progressbar" aria-valuenow="13" aria-valuemin="0" style="width: 13%;"></div>
 </div>
 </div>
 </div>
-</td>
-<td class="align-middle">
-<button class="btn btn-link text-secondary mb-0">
-<i class="fa fa-ellipsis-v text-xs" aria-hidden="true"></i>
-</button>
 </td>
 </tr>
 <tr>
 <td>
 <div class="d-flex px-2">
 <div>
-<img src="../../assets/img/small-logos/logo-invision.svg" class="avatar avatar-sm rounded-circle me-2" alt="invision">
+<img src="../../assets/png/cellphone.png" class="me-1" alt="sleep" style="width: 18px; height: 18px;">
 </div>
 <div class="my-auto">
-<h6 class="mb-0 text-sm">Invision</h6>
+<h6 class="mb-0 text-sm">통화</h6>
 </div>
 </div>
 </td>
 <td>
-<p class="text-sm font-weight-bold mb-0">$5,000</p>
+<p class="text-sm text-center font-weight-bold mb-0">6</p>
 </td>
 <td>
-<span class="text-xs font-weight-bold">done</span>
+<p class="text-sm text-center font-weight-bold mb-0">3</p>
 </td>
-<td class="align-middle text-center">
+<td>
+<p class="text-sm text-center font-weight-bold mb-0">5</p>
+</td>
+<td>
+<p class="text-sm text-center font-weight-bold mb-0">4</p>
+</td>
+<td>
+<p class="text-sm text-center font-weight-bold mb-0">4</p>
+</td>
+<td>
+<p class="text-sm text-center font-weight-bold mb-0">6</p>
+</td>
+<td>
+<p class="text-sm text-center font-weight-bold mb-0">4</p>
+</td>
+<td>
+<p class="text-sm text-center font-weight-bold mb-0">2</p>
+</td>
+<td>
+<p class="text-sm text-center font-weight-bold mb-0">15</p>
+</td>
+<td>
+<p class="text-sm text-center font-weight-bold mb-0">4</p>
+</td>
+<td>
+<p class="text-sm text-center font-weight-bold mb-0">18</p>
+</td>
+<td>
+<p class="text-sm text-center font-weight-bold mb-0">15</p>
+</td>
+<td>
 <div class="d-flex align-items-center justify-content-center">
-<span class="me-2 text-xs font-weight-bold">100%</span>
+<span class="me-2 text-xs font-weight-bold">57회</span>
 <div>
 <div class="progress">
-<div class="progress-bar bg-gradient-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
+<div class="progress-bar-cellphone" role="progressbar" aria-valuenow="57" aria-valuemin="0" style="width: 57%;"></div>
 </div>
 </div>
 </div>
-</td>
-<td class="align-middle">
-<button class="btn btn-link text-secondary mb-0" aria-haspopup="true" aria-expanded="false">
-<i class="fa fa-ellipsis-v text-xs" aria-hidden="true"></i>
-</button>
-</td>
- </tr>
-<tr>
-<td>
-<div class="d-flex px-2">
-<div>
-<img src="../../assets/img/small-logos/logo-jira.svg" class="avatar avatar-sm rounded-circle me-2" alt="jira">
-</div>
-<div class="my-auto">
-<h6 class="mb-0 text-sm">Jira</h6>
-</div>
-</div>
-</td>
-<td>
-<p class="text-sm font-weight-bold mb-0">$3,400</p>
-</td>
-<td>
-<span class="text-xs font-weight-bold">canceled</span>
-</td>
-<td class="align-middle text-center">
-<div class="d-flex align-items-center justify-content-center">
-<span class="me-2 text-xs font-weight-bold">30%</span>
-<div>
-<div class="progress">
-<div class="progress-bar bg-gradient-danger" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="30" style="width: 30%;"></div>
-</div>
-</div>
-</div>
-</td>
-<td class="align-middle">
-<button class="btn btn-link text-secondary mb-0" aria-haspopup="true" aria-expanded="false">
-<i class="fa fa-ellipsis-v text-xs" aria-hidden="true"></i>
-</button>
 </td>
 </tr>
 <tr>
 <td>
 <div class="d-flex px-2">
 <div>
-<img src="../../assets/img/small-logos/logo-slack.svg" class="avatar avatar-sm rounded-circle me-2" alt="slack">
+<img src="../../assets/png/message.png" class="me-1" alt="sleep" style="width: 18px; height: 18px;">
 </div>
 <div class="my-auto">
-<h6 class="mb-0 text-sm">Slack</h6>
+<h6 class="mb-0 text-sm">핸드폰 조작</h6>
 </div>
 </div>
 </td>
 <td>
-<p class="text-sm font-weight-bold mb-0">$1,000</p>
+<p class="text-sm text-center font-weight-bold mb-0">8</p>
 </td>
 <td>
-<span class="text-xs font-weight-bold">canceled</span>
+<p class="text-sm text-center font-weight-bold mb-0">3</p>
 </td>
-<td class="align-middle text-center">
+<td>
+<p class="text-sm text-center font-weight-bold mb-0">11</p>
+</td>
+<td>
+<p class="text-sm text-center font-weight-bold mb-0">9</p>
+</td>
+<td>
+<p class="text-sm text-center font-weight-bold mb-0">7</p>
+</td>
+<td>
+<p class="text-sm text-center font-weight-bold mb-0">14</p>
+</td>
+<td>
+<p class="text-sm text-center font-weight-bold mb-0">3</p>
+</td>
+<td>
+<p class="text-sm text-center font-weight-bold mb-0">17</p>
+</td>
+<td>
+<p class="text-sm text-center font-weight-bold mb-0">13</p>
+</td>
+<td>
+<p class="text-sm text-center font-weight-bold mb-0">6</p>
+</td>
+<td>
+<p class="text-sm text-center font-weight-bold mb-0">12</p>
+</td>
+<td>
+<p class="text-sm text-center font-weight-bold mb-0">19</p>
+</td>
+<td>
 <div class="d-flex align-items-center justify-content-center">
-<span class="me-2 text-xs font-weight-bold">0%</span>
+<span class="me-2 text-xs font-weight-bold">123회</span>
 <div>
 <div class="progress">
-<div class="progress-bar bg-gradient-success" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="0" style="width: 0%;"></div>
+<div class="progress-bar-text" role="progressbar" aria-valuenow="123" aria-valuemin="0" style="width: 123%;"></div>
 </div>
 </div>
 </div>
-</td>
-<td class="align-middle">
-<button class="btn btn-link text-secondary mb-0" aria-haspopup="true" aria-expanded="false">
-<i class="fa fa-ellipsis-v text-xs" aria-hidden="true"></i>
-</button>
 </td>
 </tr>
 <tr>
 <td>
 <div class="d-flex px-2">
 <div>
-<img src="https://demos.creative-tim.com/argon-dashboard/assets/img/small-logos/logo-webdev.svg" class="avatar avatar-sm rounded-circle me-2" alt="webdev">
+<img src="../../assets/png/smoking.png" class="me-1" alt="sleep" style="width: 18px; height: 18px;">
 </div>
 <div class="my-auto">
-<h6 class="mb-0 text-sm">Webdev</h6>
+<h6 class="mb-0 text-sm">흡연</h6>
 </div>
 </div>
 </td>
 <td>
-<p class="text-sm font-weight-bold mb-0">$14,000</p>
+<p class="text-sm text-center font-weight-bold mb-0">0</p>
 </td>
 <td>
-<span class="text-xs font-weight-bold">working</span>
+<p class="text-sm text-center font-weight-bold mb-0">0</p>
 </td>
-<td class="align-middle text-center">
+<td>
+<p class="text-sm text-center font-weight-bold mb-0">0</p>
+</td>
+<td>
+<p class="text-sm text-center font-weight-bold mb-0">0</p>
+</td>
+<td>
+<p class="text-sm text-center font-weight-bold mb-0">0</p>
+</td>
+<td>
+<p class="text-sm text-center font-weight-bold mb-0">0</p>
+</td>
+<td>
+<p class="text-sm text-center font-weight-bold mb-0">0</p>
+</td>
+<td>
+<p class="text-sm text-center font-weight-bold mb-0">0</p>
+</td>
+<td>
+<p class="text-sm text-center font-weight-bold mb-0">0</p>
+</td>
+<td>
+<p class="text-sm text-center font-weight-bold mb-0">0</p>
+</td>
+<td>
+<p class="text-sm text-center font-weight-bold mb-0">0</p>
+</td>
+<td>
+<p class="text-sm text-center font-weight-bold mb-0">0</p>
+</td>
+<td>
 <div class="d-flex align-items-center justify-content-center">
-<span class="me-2 text-xs font-weight-bold">80%</span>
+<span class="me-2 text-xs font-weight-bold">0회</span>
 <div>
 <div class="progress">
-<div class="progress-bar bg-gradient-info" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="80" style="width: 80%;"></div>
+<div class="progress-bar-smoking" role="progressbar" aria-valuenow="0" aria-valuemin="0" style="width: 0%;"></div>
 </div>
 </div>
 </div>
-</td>
-<td class="align-middle">
-<button class="btn btn-link text-secondary mb-0" aria-haspopup="true" aria-expanded="false">
-<i class="fa fa-ellipsis-v text-xs" aria-hidden="true"></i>
-</button>
-</td>
-</tr>
-<tr>
-<td>
-<div class="d-flex px-2">
-<div>
-<img src="../../assets/img/small-logos/logo-xd.svg" class="avatar avatar-sm rounded-circle me-2" alt="xd">
-</div>
-<div class="my-auto">
-<h6 class="mb-0 text-sm">Adobe XD</h6>
-</div>
-</div>
-</td>
-<td>
-<p class="text-sm font-weight-bold mb-0">$2,300</p>
-</td>
-<td>
-<span class="text-xs font-weight-bold">done</span>
-</td>
-<td class="align-middle text-center">
-<div class="d-flex align-items-center justify-content-center">
-<span class="me-2 text-xs font-weight-bold">100%</span>
-<div>
-<div class="progress">
-<div class="progress-bar bg-gradient-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
-</div>
-</div>
-</div>
-</td>
-<td class="align-middle">
-<button class="btn btn-link text-secondary mb-0" aria-haspopup="true" aria-expanded="false">
-<i class="fa fa-ellipsis-v text-xs" aria-hidden="true"></i>
-</button>
 </td>
 </tr>
 </tbody>
@@ -223,6 +267,25 @@
 
 <script>
 export default {
-    name: "projects-table"
+name: "projects-table"
 }
 </script>
+
+<style>
+.progress-bar-drowsy {
+@extend .progress-bar;
+background-color: blue;
+}
+.progress-bar-cellphone {
+@extend .progress-bar;
+background-color: green;
+}
+.progress-bar-text {
+@extend .progress-bar;
+background-color: red;
+}
+.progress-bar-smoking {
+@extend .progress-bar;
+background-color: purple;
+}
+</style>

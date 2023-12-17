@@ -2,7 +2,6 @@
   <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" v-bind="$attrs" id="navbarBlur"
     data-scroll="true">
     <div class="px-3 py-1 container-fluid">
-      <breadcrumbs :currentPage="currentRouteName" textWhite="text-white" />
 
       <div class="mt-2 collapse navbar-collapse mt-sm-0 me-md-0 me-sm-4" id="navbar">
         <div class="pe-md-3 d-flex align-items-center">
@@ -127,7 +126,6 @@
   </nav>
 </template>
 <script>
-import Breadcrumbs from "../Breadcrumbs.vue";
 import { mapMutations, mapActions, mapState } from "vuex";
 import axios from "axios";
 
@@ -163,7 +161,6 @@ export default {
     }
   },
   components: {
-    Breadcrumbs,
   },
   computed: {
     ...mapState(['isLoggedIn', 'usersName']),

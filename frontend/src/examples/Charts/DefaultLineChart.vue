@@ -31,7 +31,7 @@ export default {
                         tension: 0,
                         borderWidth: 3,
                         pointRadius: 3,
-                        borderColor: "red"
+                        borderColor: "blue"
                     },
                     {
                         label: '통화',
@@ -40,16 +40,25 @@ export default {
                         tension: 0,
                         borderWidth: 3,
                         pointRadius: 3,
-                        borderColor: "blue",
+                        borderColor: "green",
                     },
                     {
-                        label: '문자',
+                        label: '핸드폰 조작',
                         data: [8, 3, 11, 9, 7, 14,
                     3, 17, 13, 6, 12, 19],
                         tension: 0,
                         borderWidth: 3,
                         pointRadius: 3,
-                        borderColor: "green",
+                        borderColor: "red",
+                    },
+                    {
+                        label: '흡연',
+                        data: [0, 0, 0, 0, 0, 0,
+                    0, 0, 0, 0, 0, 0],
+                        tension: 0,
+                        borderWidth: 3,
+                        pointRadius: 3,
+                        borderColor: "purple",
                     },
                 ],
             },

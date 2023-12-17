@@ -1,7 +1,7 @@
 <template>
   <div class="card mb-4">
     <div class="pb-0 card-header mb-0">
-      <h6 style="font-weight: bold; font-size: large;">하루 중 가장 졸린 시간</h6>
+      <h6 style="font-weight: bold; font-size: large;">운전자 졸음 시간대 예측 (월통계)</h6>
     </div>
     <div class="p-3 card-body">
       <div class="chart">
@@ -41,7 +41,7 @@ export default {
     new Chart(ctx1, {
       type: "line",
       data: {
-        labels: ["00시", "03시", "06시", "12시", "15시", "18시", "21시"],
+        labels: ["07시", "10시", "13시", "16시", "19시", "22시", "01시", "04시"],
         datasets: [
           {
             label: "졸음 예상 확률",
@@ -52,7 +52,7 @@ export default {
             backgroundColor: gradientStroke1,
             // eslint-disable-next-line no-dupe-keys
             fill: true,
-            data: [15, 56, 21, 33, 41, 8, 11],
+            data: [0, 5, 73, 44, 8, 27, 62, 14],
             maxBarThickness: 6,
           },
         ],
