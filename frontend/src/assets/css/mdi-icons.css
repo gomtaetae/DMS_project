@@ -1,0 +1,91 @@
+@font-face {
+    font-family: 'mdiIcons';
+    src: url('src/assets/css/mdi-icons.css');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/*------------------------
+    base class definition
+-------------------------*/
+
+.mdi {
+    display: inline-block;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/*------------------------
+    change icon size
+-------------------------*/
+
+.mdi-lg {
+    font-size: 1.33333333em;
+    line-height: 0.75em;
+    vertical-align: -15%;
+}
+
+.mdi-2x {
+    font-size: 2em;
+}
+
+.mdi-3x {
+    font-size: 3em;
+}
+
+.mdi-4x {
+    font-size: 4em;
+}
+
+.mdi-5x {
+    font-size: 5em;
+}
+
+/*----------------------------------
+    add a square/circle background
+-----------------------------------*/
+
+.mdi.square,
+.mdi.circle {
+    padding: 0.33333333em;
+    vertical-align: -16%;
+    background-color: #eee;
+}
+
+.mdi.circle {
+    border-radius: 50%;
+}
+
+/*------------------------
+    list icons
+-------------------------*/
+
+.mdi-ul {
+    padding-left: 0;
+    margin-left: 2.14285714em;
+    list-style-type: none;
+}
+
+.mdi-ul>li {
+    position: relative;
+}
+
+.mdi-ul>li>.mdi {
+    position: absolute;
+    left: -1.57142857em;
+    top: 0.14285714em;
+    text-align: center;
+}
+
+.mdi-ul>li>.mdi.lg {
+    top: 0;
+    left: -1.35714286em;
+}
+
+.mdi-ul>li>.mdi.circle,
+.mdi-ul>li>.mdi.square {
+    top: -0.19047619em;
+    left: -1.9047619em;
+}

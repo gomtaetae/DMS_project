@@ -11,10 +11,10 @@
             {{ new Date().getFullYear() }}, made with
             <i class="fa fa-heart"></i> by
             <a
-              href="https://www.creative-tim.com"
+              href="https://github.com/kosa-final"
               class="font-weight-bold"
               target="_blank"
-              >Creative Tim</a
+              >Team DMS</a
             >
             for a better web.
           </div>
@@ -25,26 +25,18 @@
           >
             <li class="nav-item">
               <a
-                href="https://www.creative-tim.com"
+                href="https://github.com/kosa-final"
                 class="nav-link text-muted"
                 target="_blank"
-                >Creative Tim</a
+                >Team DMS</a
               >
             </li>
             <li class="nav-item">
               <a
-                href="https://www.creative-tim.com/presentation"
+                href="https://github.com/kosa-final"
                 class="nav-link text-muted"
                 target="_blank"
                 >About Us</a
-              >
-            </li>
-            <li class="nav-item">
-              <a
-                href="https://www.creative-tim.com/blog"
-                class="nav-link text-muted"
-                target="_blank"
-                >Blog</a
               >
             </li>
             <li class="nav-item">

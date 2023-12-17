@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <div class="py-4 container-fluid">
     <div class="row">
       <div class="col-lg-3 col-sm-6 mb-lg-0">
@@ -149,4 +149,4 @@ export default {
     document.querySelector("#app").classList.remove("rtl");
   },
 };
-</script>
+</script> -->

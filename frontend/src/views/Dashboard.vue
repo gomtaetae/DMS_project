@@ -1,119 +1,57 @@
 <template>
   <div class="py-4 container-fluid">
     <div class="row">
-      <div class="col-md-12">
-          <h1>My Test</h1>
-          <button type="button" class="btn btn-success btn-sm" v-on:click="getRanStr">{{my_data}}</button>
-          <hr>
-          <ul>
-            <li v-for="(msg,index) in ran_str" :key="index">
-              {{ msg.key }}
-            </li>
-          </ul>
-      </div>
       <div class="col-lg-12">
+        <!-- Cards -->
         <div class="row">
           <div class="col-lg-3 col-md-6 col-12">
-            <card
-              :title="stats.money.title"
-              :value="stats.money.value"
-              :percentage="stats.money.percentage"
-              :iconClass="stats.money.iconClass"
-              :iconBackground="stats.money.iconBackground"
-              :detail="stats.money.detail"
-              directionReverse
-            ></card>
+            <card style="background-color: #F5F1D6;" :title="stats.drowsy.title" :total="stats.drowsy.total"
+              :value="stats.drowsy.value" :percentage="stats.drowsy.percentage"
+              :percentageColor="stats.drowsy.percentageColor" :iconBackground="stats.drowsy.iconBackground"
+              :detail="stats.drowsy.detail" :iconImage="stats.drowsy.iconImage" directionReverse>
+            </card>
           </div>
           <div class="col-lg-3 col-md-6 col-12">
-            <card
-              :title="stats.users.title"
-              :value="stats.users.value"
-              :percentage="stats.users.percentage"
-              :iconClass="stats.users.iconClass"
-              :iconBackground="stats.users.iconBackground"
-              :detail="stats.users.detail"
-              directionReverse
-            ></card>
+            <card style="background-color: #F5F1D6;" :title="stats.Calling.title" :total="stats.Calling.total"
+              :value="stats.Calling.value" :percentage="stats.Calling.percentage"
+              :percentageColor="stats.Calling.percentageColor" :iconBackground="stats.Calling.iconBackground"
+              :detail="stats.Calling.detail" :iconImage="stats.Calling.iconImage" directionReverse></card>
           </div>
           <div class="col-lg-3 col-md-6 col-12">
-            <card
-              :title="stats.clients.title"
-              :value="stats.clients.value"
-              :percentage="stats.clients.percentage"
-              :iconClass="stats.clients.iconClass"
-              :iconBackground="stats.clients.iconBackground"
-              :percentageColor="stats.clients.percentageColor"
-              :detail="stats.clients.detail"
-              directionReverse
-            ></card>
+            <card style="background-color: #F5F1D6;" :title="stats.Texting.title" :total="stats.Texting.total"
+              :value="stats.Texting.value" :percentage="stats.Texting.percentage"
+              :iconBackground="stats.Texting.iconBackground" :percentageColor="stats.Texting.percentageColor"
+              :detail="stats.Texting.detail" :iconImage="stats.Texting.iconImage" directionReverse></card>
           </div>
           <div class="col-lg-3 col-md-6 col-12">
-            <card
-              :title="stats.sales.title"
-              :value="stats.sales.value"
-              :percentage="stats.sales.percentage"
-              :iconClass="stats.sales.iconClass"
-              :iconBackground="stats.sales.iconBackground"
-              :detail="stats.sales.detail"
-              directionReverse
-            ></card>
+            <card style="background-color: #F5F1D6;" :title="stats.Smoking.title" :total="stats.Smoking.total"
+              :value="stats.Smoking.value" :percentage="stats.Smoking.percentage"
+              :iconBackground="stats.Smoking.iconBackground" :detail="stats.Smoking.detail"
+              :iconImage="stats.Smoking.iconImage" directionReverse></card>
           </div>
         </div>
-        <div class="row">
-          <div class="col-lg-7 mb-lg">
-            <!-- line chart -->
-            <div class="card z-index-2">
-              <gradient-line-chart />
-            </div>
+        <!-- Video: 로그인하지 않았을 때만 보임 -->
+        <div class="row" v-if="!isLoggedIn">
+          <div class="col-12">
+            <video-card />
           </div>
-          <div class="col-lg-5">
-            <carousel />
+        </div>
+        <!-- Charts: 로그인했을 때만 보임 -->
+        <div class="row" v-if="isLoggedIn">
+          <div class="col-12">
+            <GradientLineChart />
+          </div>
+        </div>
+        <div class="row" v-if="isLoggedIn">
+          <div class="col-lg-8 col-12">
+            <DefaultLineChart />
           </div>
         </div>
         <div class="row mt-4">
           <div class="col-lg-7 mb-lg-0 mb-4">
             <div class="card">
-              <div class="p-3 pb-0 card-header">
-                <div class="d-flex justify-content-between">
-                  <h6 class="mb-2">Sales by Country</h6>
-                </div>
-              </div>
               <div class="table-responsive">
-                <table class="table align-items-center">
-                  <tbody>
-                    <tr v-for="(sale, index) in sales" :key="index">
-                      <td class="w-30">
-                        <div class="px-2 py-1 d-flex align-items-center">
-                          <div>
-                            <img :src="sale.flag" alt="Country flag" />
-                          </div>
-                          <div class="ms-4">
-                            <p class="mb-0 text-xs font-weight-bold">Country:</p>
-                            <h6 class="mb-0 text-sm">{{ sale.country }}</h6>
-                          </div>
-                        </div>
-                      </td>
-                      <td>
-                        <div class="text-center">
-                          <p class="mb-0 text-xs font-weight-bold">Sales:</p>
-                          <h6 class="mb-0 text-sm">{{ sale.sales }}</h6>
-                        </div>
-                      </td>
-                      <td>
-                        <div class="text-center">
-                          <p class="mb-0 text-xs font-weight-bold">Value:</p>
-                          <h6 class="mb-0 text-sm">{{ sale.value }}</h6>
-                        </div>
-                      </td>
-                      <td class="text-sm align-middle">
-                        <div class="text-center col">
-                          <p class="mb-0 text-xs font-weight-bold">Bounce:</p>
-                          <h6 class="mb-0 text-sm">{{ sale.bounce }}</h6>
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+                <authors-table />
               </div>
             </div>
           </div>
@@ -126,102 +64,83 @@
   </div>
 </template>
 <script>
+// import CategoriesCard from "./components/CategoriesCard.vue";
+// import AuthorsTable from "@/views/components/AuthorsTable.vue";
 import Card from "@/examples/Cards/Card.vue";
 import GradientLineChart from "@/examples/Charts/GradientLineChart.vue";
-import Carousel from "./components/Carousel.vue";
-import CategoriesCard from "./components/CategoriesCard.vue";
-
-import US from "@/assets/img/icons/flags/US.png";
-import DE from "@/assets/img/icons/flags/DE.png";
-import GB from "@/assets/img/icons/flags/GB.png";
-import BR from "@/assets/img/icons/flags/BR.png";
+import VideoCard from "@/examples/Cards/VideoCard.vue";
+import DefaultLineChart from "@/examples/Charts/DefaultLineChart.vue";
+import { mapState } from 'vuex';
+import sleep from "@/assets/png/sleep.png";
+import cellphone from "@/assets/png/cellphone.png";
+import message from "@/assets/png/message.png";
+import smoking from "@/assets/png/smoking.png";
 
 // axios
 import axios from 'axios';
 
 export default {
-  name: "dashboard-default",
+  name: "Dashboard",
+  computed: {
+    ...mapState(['isLoggedIn']), // Vuex 스토어에서 isLoggedIn 상태를 매핑
+  },
   data() {
     return {
       my_data: '',
       ran_str: [],
       stats: {
-        money: {
-          title: "Today's Money",
-          value: "$53,000",
-          percentage: "+55%",
-          iconClass: "ni ni-money-coins",
-          detail: "since yesterday",
-          iconBackground: "bg-gradient-primary",
-        },
-        users: {
-          title: "Today's Users",
-          value: "2,300",
-          percentage: "+3%",
-          iconClass: "ni ni-world",
-          iconBackground: "bg-gradient-danger",
-          detail: "since last week",
-        },
-        clients: {
-          title: "New Clients",
-          value: "+3,462",
-          percentage: "-2%",
-          iconClass: "ni ni-paper-diploma",
+        drowsy: {
+          title: "졸음",
+          total: "누적",
+          value: "13",
+          percentage: "1회 증가",
           percentageColor: "text-danger",
-          iconBackground: "bg-gradient-success",
-          detail: "since last quarter",
-        },
-        sales: {
-          title: "Sales",
-          value: "$103,430",
-          percentage: "+5%",
-          iconClass: "ni ni-cart",
           iconBackground: "bg-gradient-warning",
-          detail: "than last month",
+          detail: "지난 달보다",
+          iconImage: sleep,
         },
-      },
-      sales: {
-        us: {
-          country: "United States",
-          sales: 2500,
-          value: "$230,900",
-          bounce: "29.9%",
-          flag: US,
+        Calling: {
+          title: "통화",
+          total: "누적",
+          value: "57",
+          percentage: "3회 감소",
+          percentageColor: "text-info",
+          iconBackground: "bg-gradient-success",
+          detail: "지난 달보다",
+          iconImage: cellphone,
         },
-        germany: {
-          country: "Germany",
-          sales: "3.900",
-          value: "$440,000",
-          bounce: "40.22%",
-          flag: DE,
+        Texting: {
+          title: "문자 메시지",
+          total: "누적",
+          value: "123",
+          percentage: "7회 증가",
+          percentageColor: "text-danger",
+          iconBackground: "bg-gradient-warning",
+          detail: "지난 달보다",
+          iconImage: message,
         },
-        britain: {
-          country: "Great Britain",
-          sales: "1.400",
-          value: "$190,700",
-          bounce: "23.44%",
-          flag: GB,
-        },
-        brasil: {
-          country: "Brasil",
-          sales: "562",
-          value: "$143,960",
-          bounce: "32.14%",
-          flag: BR,
+        Smoking: {
+          title: "흡연",
+          total: "누적",
+          value: "0",
+          percentage: "0회",
+          iconBackground: "bg-gray-500",
+          detail: "지난 달보다",
+          iconImage: smoking,
         },
       },
     };
   },
   methods: {
-    getMyData(){
+    getMyData() {
       let path = "http://" + window.location.hostname + ":5000/";
       axios.get(path).then((res) => {
-          this.my_data = res.data;
+        this.my_data = res.data;
       }).catch((error) => {
-          console.error(error);
+        console.error(error);
       });
     },
-    getRanStr(){
+    getRanStr() {
       let path = "http://" + window.location.hostname + ":5000/main_btn";
       axios.get(path).then((res) => {
         this.ran_str = res.data;
@@ -230,15 +149,37 @@ export default {
         console.error(error);
       })
     },
+    checkToken() {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        console.log('No token found');
+        // 로그인 페이지로 리디렉션하거나 사용자에게 알림
+      }
+    },
   },
   created() {
+    const token = localStorage.getItem('token');
+    if (token) {
+      console.log('Token exists:', token);
+      // 추가적인 로직 처리
+    } else {
+      console.log('No token found');
+      // 로그인 페이지로 리디렉션하거나 사용자에게 알림
+    }
+    this.checkToken();
+    // console.log('Dashboard created');
+    // const token = localStorage.getItem('token');
+    // console.log('Dashboard token:', token);
+
     this.getMyData();
   },
   components: {
+    // AuthorsTable,
+    // CategoriesCard,
     Card,
     GradientLineChart,
-    Carousel,
-    CategoriesCard,
+    DefaultLineChart,
+    VideoCard
   },
 };
 </script>

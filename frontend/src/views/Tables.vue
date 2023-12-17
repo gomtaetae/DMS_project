@@ -2,26 +2,26 @@
   <div class="py-4 container-fluid">
     <div class=" row">
       <div class="col-12">
-        <authors-table />
+        <default-line-chart/>
       </div>
     </div>
-    <div class="mt-4 row">
-      <div class="col-12">
-        <projects-table />
+    <div class="row">
+      <div class="col-lg-8 col-12">
+        <projects-table/>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import AuthorsTable from "./components/AuthorsTable.vue";
+import DefaultLineChart from "../examples/Charts/DefaultLineChart.vue"
 import ProjectsTable from "./components/ProjectsTable.vue";
 
 export default {
-  name: "tables",
+  name: "monthly-chart",
   components: {
-    AuthorsTable,
-    ProjectsTable
+    DefaultLineChart,
+    ProjectsTable,
   },
   data() {
     return {

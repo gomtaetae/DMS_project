@@ -13,7 +13,7 @@
       <h6 v-if="this.$store.state.isRTL" class="mb-0 text-dark up">
         تحتاج مساعدة ؟
       </h6>
-      <h6 v-else class="mb-0 text-dark up">Need Help ?</h6>
+      <h6 v-else class="mb-0 text-dark up">도움이 필요한가요?</h6>
       <p v-if="this.$store.state.isRTL" class="text-xs font-weight-bold">
         يرجى التحقق من مستنداتنا
       </p>

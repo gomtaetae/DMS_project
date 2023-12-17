@@ -10,6 +10,6 @@ flask db migrate
 flask db upgrade
 
 flask run
-
-
+flask-sqlacodegen "mysql+pymysql://root:1234@db/dms" --flask > model.py
+flask-sqlacodegen "mysql+pymysql://root:1234@db/dms" --flask
 pause

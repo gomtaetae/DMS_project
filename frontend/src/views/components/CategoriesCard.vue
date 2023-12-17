@@ -10,11 +10,8 @@
           :class="this.$store.state.isRTL ? 'pe-0' : 'ps-0'"
         >
           <div class="d-flex align-items-center">
-            <div
-              class="text-center shadow icon icon-shape icon-sm bg-gradient-dark"
-              :class="this.$store.state.isRTL ? 'ms-3' : 'me-3'"
-            >
-              <i class="ni ni-mobile-button text-white opacity-10"></i>
+            <div class="text-center shadow icon icon-shape icon-sm bg-gradient-dark me-3">
+              <i class="mdi mdi-sleep text-center text-lg text-white"></i>
             </div>
             <div class="d-flex flex-column">
               <h6 class="mb-1 text-sm text-dark">{{ title }}</h6>
@@ -28,7 +25,7 @@
             <button
               class="my-auto btn btn-link btn-icon-only btn-rounded btn-sm text-dark icon-move-right"
             >
-              <i class="ni ni-bold-right" aria-hidden="true"></i>
+              <i class="mdi mdi-panorama text-black text-lg" aria-hidden="true"></i>
             </button>
           </div>
         </li>
@@ -38,10 +35,8 @@
         >
           <div class="d-flex align-items-center">
             <div
-              class="text-center shadow icon icon-shape icon-sm bg-gradient-dark"
-              :class="this.$store.state.isRTL ? 'ms-3' : 'me-3'"
-            >
-              <i class="ni ni-tag text-white opacity-10"></i>
+              class="text-center shadow icon icon-shape icon-sm bg-gradient-dark me-3">
+              <i class="mdi mdi-cellphone text-lg text-white text-center"></i>
             </div>
             <div class="d-flex flex-column">
               <h6 class="mb-1 text-sm text-dark">{{ title2 }}</h6>
@@ -55,7 +50,7 @@
             <button
               class="my-auto btn btn-link btn-icon-only btn-rounded btn-sm text-dark icon-move-right"
             >
-              <i class="ni ni-bold-right" aria-hidden="true"></i>
+              <i class="mdi mdi-panorama text-lg" aria-hidden="true"></i>
             </button>
           </div>
         </li>
@@ -65,16 +60,14 @@
         >
           <div class="d-flex align-items-center">
             <div
-              class="text-center shadow icon icon-shape icon-sm bg-gradient-dark"
-              :class="this.$store.state.isRTL ? 'ms-3' : 'me-3'"
-            >
-              <i class="ni ni-box-2 text-white opacity-10"></i>
+              class="text-center shadow icon icon-shape icon-sm bg-gradient-dark me-3">
+              <i class="mdi mdi-message text-center text-lg text-white"></i>
             </div>
             <div class="d-flex flex-column">
               <h6 class="mb-1 text-sm text-dark">{{ title3 }}</h6>
               <span class="text-xs">
                 {{ title3Desc }},
-                <span class="font-weight-bold">{{ title3Desc2 }}</span>
+                <span class="font-weight-bold text-danger opacity-7">{{ title3Desc2 }}</span>
               </span>
             </div>
           </div>
@@ -82,7 +75,7 @@
             <button
               class="my-auto btn btn-link btn-icon-only btn-rounded btn-sm text-dark icon-move-right"
             >
-              <i class="ni ni-bold-right" aria-hidden="true"></i>
+              <i class="mdi mdi-panorama text-lg" aria-hidden="true"></i>
             </button>
           </div>
         </li>
@@ -92,10 +85,8 @@
         >
           <div class="d-flex align-items-center">
             <div
-              class="text-center shadow icon icon-shape icon-sm bg-gradient-dark"
-              :class="this.$store.state.isRTL ? 'ms-3' : 'me-3'"
-            >
-              <i class="ni ni-satisfied text-white opacity-10"></i>
+              class="text-center shadow icon icon-shape icon-sm bg-gradient-dark me-3">
+              <i class="mdi mdi-smoking text-center text-lg text-white"></i>
             </div>
             <div class="d-flex flex-column">
               <h6 class="mb-1 text-sm text-dark">{{ title4 }}</h6>
@@ -106,7 +97,7 @@
             <button
               class="my-auto btn btn-link btn-icon-only btn-rounded btn-sm text-dark icon-move-right"
             >
-              <i class="ni ni-bold-right" aria-hidden="true"></i>
+              <i class="mdi mdi-panorama text-lg" aria-hidden="true"></i>
             </button>
           </div>
         </li>
@@ -121,52 +112,55 @@ export default {
   props: {
     cardTitle: {
       type: String,
-      default: "Categories",
+      default: "Bad Habit Gallery",
     },
     title: {
       type: String,
-      default: "Devices",
+      default: "Drowsy",
     },
     title2: {
       type: String,
-      default: "Tickets",
+      default: "Calling",
     },
     title3: {
       type: String,
-      default: "Error logs",
+      default: "Texting",
     },
     title4: {
       type: String,
-      default: "Happy Users",
+      default: "Smoking",
     },
     titleDesc: {
       type: String,
-      default: "250 in stock",
+      default: "1 is update",
     },
     titleDesc2: {
       type: String,
-      default: "346+ sold",
+      default: "TOTAL 13 Pictures",
     },
     title2Desc: {
       type: String,
-      default: "123 closed",
-    },
-    title4Desc: {
-      type: String,
-      default: "+ 430",
+      default: "3 is update",
     },
     title2Desc2: {
       type: String,
-      default: "15 open",
+      default: "TOTAL 57 Pictures",
     },
     title3Desc: {
       type: String,
-      default: "1 is active",
+      default: "7 is update",
     },
     title3Desc2: {
       type: String,
-      default: "40 closed",
+      default: "TOTAL 123 Pictures",
     },
+    title4Desc: {
+      type: String,
+      default: "no update",
+    },
+    title4Desc2: {
+      default: "TOTAL 0 Pictures",
+    }
   },
 };
 </script>

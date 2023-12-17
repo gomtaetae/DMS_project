@@ -1,14 +1,14 @@
 <template>
-  <default-dashboard />
+  <dashboard />
 </template>
 
 <script>
-import DefaultDashboard from "@/views/dashboards/Default.vue";
+import Dashboard from "@/views/Dashboard.vue"; // 경로는 실제 Dashboard 컴포넌트의 위치에 맞게 조정
 
 export default {
   name: "Home",
   components: {
-    DefaultDashboard,
+    Dashboard, // 컴포넌트 이름을 변경
   },
 };
 </script>
