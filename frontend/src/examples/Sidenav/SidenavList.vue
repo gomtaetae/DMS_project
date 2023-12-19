@@ -8,7 +8,7 @@
           </template>
         </sidenav-item>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" v-if="isLoggedIn">
         <sidenav-item url="/tables" :class="getRoute() === 'tables' ? 'active' : ''" navText="월간 위험 행동 통계">
           <template v-slot:icon>
             <img class="sideimg" src="../../assets/png/chart-areaspline.png" alt="월간 위험 행동 통계" />
