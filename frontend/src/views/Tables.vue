@@ -1,12 +1,15 @@
 <template>
   <div class="py-4 container-fluid">
     <div class=" row">
-      <div class="col-12">
+      <div class="col-lg-8 col-12">
         <default-line-chart/>
+      </div>
+      <div class="col-lg-4 col-12">
+        <thin-bar-chart/>
       </div>
     </div>
     <div class="row">
-      <div class="col-lg-8 col-12">
+      <div class="col-12">
         <projects-table/>
       </div>
     </div>
@@ -16,12 +19,14 @@
 <script>
 import DefaultLineChart from "../examples/Charts/DefaultLineChart.vue"
 import ProjectsTable from "./components/ProjectsTable.vue";
+import ThinBarChart from "../examples/Charts/ThinBarChart.vue";
 
 export default {
   name: "monthly-chart",
   components: {
     DefaultLineChart,
     ProjectsTable,
+    ThinBarChart,
   },
   data() {
     return {

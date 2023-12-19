@@ -3,7 +3,7 @@
         <div class="d-flex p-0 card-body">
             <video
                 class="card-video"
-                :src="require('@/assets/video/cat.mp4')"
+                :src="require('@/assets/video/mainvideo.mp4')"
                 type="video/mp4"
                 controls
             ></video>
@@ -22,7 +22,7 @@ export default {
 
     data() {
         return {
-            currentVideo: '../../assets/video/cat.mp4'
+            currentVideo: '../../assets/video/mainvideo.mp4'
             // videoUrl: 'https://youtu.be/eBXN94xQmFw?si=c26LLzyjzb516FG1'
         };
     },

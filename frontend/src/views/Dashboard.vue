@@ -46,6 +46,9 @@
           <div class="col-lg-8 col-12">
             <DefaultLineChart />
           </div>
+          <div class="col-lg-4 col-12">
+            <ThinBarChart />
+          </div>
         </div>
         <div class="row mt-4">
           <div class="col-lg-7 mb-lg-0 mb-4">
@@ -54,6 +57,7 @@
                 <authors-table />
               </div>
             </div>
+
           </div>
           <div class="col-lg-5">
             <categories-card />
@@ -75,6 +79,7 @@ import sleep from "@/assets/png/sleep.png";
 import cellphone from "@/assets/png/cellphone.png";
 import message from "@/assets/png/message.png";
 import smoking from "@/assets/png/smoking.png";
+import ThinBarChart from "@/examples/Charts/ThinBarChart.vue";
 
 // axios
 import axios from 'axios';
@@ -179,7 +184,8 @@ export default {
     Card,
     GradientLineChart,
     DefaultLineChart,
-    VideoCard
+    VideoCard,
+    ThinBarChart
   },
 };
 </script>
